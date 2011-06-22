@@ -1,0 +1,12 @@
+# Automatically generated for Debian scripts. DO NOT TOUCH!
+[client]
+host     = localhost
+user     = debian-sys-maint
+password = sxJXek7ie7kncoem
+socket   = mysqld_sock_file
+[mysql_upgrade]
+host     = localhost
+user     = debian-sys-maint
+password = sxJXek7ie7kncoem
+socket   = mysqld_sock_file
+basedir  = /usr
