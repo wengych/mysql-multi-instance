@@ -72,7 +72,7 @@ mysql -S ${MYSQLD_SOCK_FILE} -e "grant all privileges on *.* to 'debian-sys-main
 mysql -S ${MYSQLD_SOCK_FILE} -e "create user 'admin' identified by 'admin'"
 mysql -S ${MYSQLD_SOCK_FILE} -e "grant all privileges on *.* to 'admin'@'%'"
 
-if [ `dirname ${MYSQL_DATA_DIR}` -eq "/mnt/ramdisk" ]; then
+if [ `dirname ${MYSQL_DATA_DIR}` = "/mnt/ramdisk" ]; then
   /etc/init.d/${INSTANCE_NAME} stop
   cp -R ${MYSQL_DATA_DIR} /root
   /etc/init.d/${INSTANCE_NAME} start
