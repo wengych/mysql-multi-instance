@@ -61,6 +61,7 @@ mysql_install_db --user=mysql --datadir=${MYSQL_DATA_DIR}
 # Generate mysql init.d script
 cp etc/init.d/mysql-multi /etc/init.d/${INSTANCE_NAME}
 sed -i "s@mysql_instance_config_path@"$MYSQL_CONF"@g" /etc/init.d/${INSTANCE_NAME}
+sed -i "s@mysql_data_dir@"$MYSQL_DATA_DIR"@g"         /etc/init.d/${INSTANCE_NAME}
 
 # Update debian-sys-maint user in new database
 /etc/init.d/${INSTANCE_NAME} start
@@ -70,3 +71,9 @@ mysql -S ${MYSQLD_SOCK_FILE} -e "grant all privileges on *.* to 'debian-sys-main
 
 mysql -S ${MYSQLD_SOCK_FILE} -e "create user 'admin' identified by 'admin'"
 mysql -S ${MYSQLD_SOCK_FILE} -e "grant all privileges on *.* to 'admin'@'%'"
+
+if [ `dirname ${MYSQL_DATA_DIR}` -eq "/mnt/ramdisk" ]; then
+  /etc/init.d/${INSTANCE_NAME} stop
+  cp -R ${MYSQL_DATA_DIR} /root
+  /etc/init.d/${INSTANCE_NAME} start
+fi
