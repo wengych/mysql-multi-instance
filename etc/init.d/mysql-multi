@@ -18,8 +18,10 @@ set -u
 ${DEBIAN_SCRIPT_DEBUG:+ set -v -x}
 
 if [ `dirname mysql_data_dir` = "/mnt/ramdisk" ]; then
-  cp -R /root/mysql_instance_name mysql_data_dir
-  chown -R mysql.mysql mysql_data_dir
+  if [ ! -e mysql_data_dir ]; then
+    cp -R /root/mysql_instance_name mysql_data_dir
+    chown -R mysql.mysql mysql_data_dir
+  fi
 fi
 
 test -x /usr/bin/mysqld_safe || exit 0
