@@ -67,3 +67,6 @@ sed -i "s@mysql_instance_config_path@"$MYSQL_CONF"@g" /etc/init.d/${INSTANCE_NAM
 
 mysql -S ${MYSQLD_SOCK_FILE} -e "create user 'debian-sys-maint' identified by '${DEBIAN_SYS_MAINT_PASS}'"
 mysql -S ${MYSQLD_SOCK_FILE} -e "grant all privileges on *.* to 'debian-sys-maint'@'%'"
+
+mysql -S ${MYSQLD_SOCK_FILE} -e "create user 'admin' identified by 'admin'"
+mysql -S ${MYSQLD_SOCK_FILE} -e "grant all privileges on *.* to 'admin'@'%'"
